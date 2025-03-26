@@ -1,0 +1,85 @@
+{% extends 'portal/base.html' %}
+{% load static %}
+
+{% block css %}
+{% endblock css %}
+
+{% block content %}
+  {% block sidebar %}
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse bg-light">
+      <div class="sidebar-sticky pt-3">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" href="#">
+              <i class="fas fa-home"></i> Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="far fa-list-alt"></i> Transaction
+            </a>
+          </li>
+        </ul>
+
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+          <span>Transaction Tracking System</span>
+          <a class="d-flex align-items-center text-muted" href="#" onclick="return false;">
+            <i class="fas fa-plus-circle"></i>
+          </a>
+        </h6>
+
+        <ul class="nav flex-column mb-2">
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="fas fa-search"></i> Tracking
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  {% endblock sidebar %}
+
+  {% block main %}
+    <main role="main" class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-4">
+
+      <!-- Main jumbotron for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <div class="container">
+          <h1 class="display-3">Welcome!</h1>
+          <p>Mauris hendrerit, nisl in pellentesque iaculis, quam arcu auctor justo, vel suscipit sem nunc quis mi. Pellentesque eu justo dolor. In non mi in diam dapibus ultricies. Nam dui ipsum, egestas a eros eu, vulputate rutrum laoreet.</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <!-- Opening Representative -->
+        <div class="col-md-4">
+          <center><h2>Opening</h2><h2>Representative</h2></center>
+          <p>Ut molestie id lectus vitae finibus. Vivamus diam erat, rhoncus id feugiat mollis, congue id ligula. Aliquam erat volutpat. Quisque aliquam ullamcorper hendrerit. Duis ultricies, augue et vehicula elementum, ante quam interdum enim, at congue vel.</p>
+          <p class="mt-4">
+            <a class="btn btn-secondary my-1" role="button">View details &raquo;</a>
+            <a class="btn btn-primary my-1" role="button">Submit Online Form</a>
+          </p>
+        </div>
+        <!-- Appointing Agent Distributor -->
+        <div class="col-md-4">
+          <center><h2>Appointing</h2><h2>Agent Distributor</h2></center>
+          <p>Mauris orci dui, ultricies eget mi sed, pharetra pharetra quam. Ut euismod, magna vel maximus lobortis, eros tellus varius justo, vel malesuada lorem nunc quis ante. Ut pharetra metus massa, sed mollis nisi pellentesque sit amet. Maecenas ac egestas sed. </p>
+          <p class="mt-4">
+            <a class="btn btn-secondary my-1" role="button">View details &raquo;</a>
+            <a class="btn btn-primary my-1" role="button">Submit Online Form</a>
+          </p>
+        </div>
+        <!-- Appointing Franchise -->
+        <div class="col-md-4">
+          <center><h2>Appointing</h2><h2>Franchise</h2></center>
+          <p>Aliquam in est id purus porta imperdiet. Duis rhoncus tincidunt pellentesque. Nam ut rutrum dolor. Pellentesque sed sapien magna. Etiam id eros semper, condimentum augue non, euismod magna. Ut non nulla at ligula rhoncus sollicitudin. Integer imperdiet erat nec neque dapibus, vel ac. </p>
+          <p class="mt-4">
+            <a class="btn btn-secondary my-1" role="button">View details &raquo;</a>
+            <a class="btn btn-primary my-1" role="button">Submit Online Form</a>
+          </p>
+        </div>
+      </div>
+
+    </main>
+  {% endblock main %}
+{% endblock content %}

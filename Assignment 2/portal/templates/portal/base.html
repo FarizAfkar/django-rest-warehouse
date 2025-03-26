@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="Bootstrap contributors"/>
+
+    <title>
+      {% block title %}
+        {{ page_title|default:"Django Stock Warehouse" }}
+      {% endblock title %}
+    </title>
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+
+    <!-- Bootstrap 5 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+        }
+      }
+
+      .spanner{
+        position:absolute;
+        top: 50%;
+        left: 0;
+        background: #2a2a2a55;
+        width: 100%;
+        display:block;
+        text-align:center;
+        height: 300px;
+        color: #FFF;
+        transform: translateY(-50%);
+        z-index: 1000000;
+        visibility: hidden;
+      }
+
+      .overlay{
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        visibility: hidden;
+      }
+
+      .loader,
+      .loader:before,
+      .loader:after {
+        border-radius: 50%;
+        width: 2.5em;
+        height: 2.5em;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+        -webkit-animation: load7 1.8s infinite ease-in-out;
+        animation: load7 1.8s infinite ease-in-out;
+      }
+      .loader {
+        color: #ffffff;
+        font-size: 10px;
+        margin: 80px auto;
+        position: relative;
+        text-indent: -9999em;
+        -webkit-transform: translateZ(0);
+        -ms-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-animation-delay: -0.16s;
+        animation-delay: -0.16s;
+      }
+      .loader:before,
+      .loader:after {
+        content: '';
+        position: absolute;
+        top: 0;
+      }
+      .loader:before {
+        left: -3.5em;
+        -webkit-animation-delay: -0.32s;
+        animation-delay: -0.32s;
+      }
+      .loader:after {
+        left: 3.5em;
+      }
+      @-webkit-keyframes load7 {
+        0%,
+        80%,
+        100% {
+          box-shadow: 0 2.5em 0 -1.3em;
+        }
+        40% {
+          box-shadow: 0 2.5em 0 0;
+        }
+      }
+      @keyframes load7 {
+        0%,
+        80%,
+        100% {
+          box-shadow: 0 2.5em 0 -1.3em;
+        }
+        40% {
+          box-shadow: 0 2.5em 0 0;
+        }
+      }
+
+      .show{
+        visibility: visible;
+      }
+
+      .spanner, .overlay{
+        opacity: 0;
+        -webkit-transition: all 0.3s;
+        -moz-transition: all 0.3s;
+        transition: all 0.3s;
+      }
+
+      .spanner.show, .overlay.show {
+        opacity: 1
+      }
+    </style>
+
+    <style>
+      body {
+        font-size: .875rem;
+      }
+
+      .feather {
+        width: 16px;
+        height: 16px;
+        vertical-align: text-bottom;
+      }
+
+      /*
+       * Sidebar
+       */
+
+      .sidebar {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 100; /* Behind the navbar */
+        padding: 48px 0 0; /* Height of navbar */
+        box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+      }
+
+      @media (max-width: 767.98px) {
+        .sidebar {
+          top: 5rem;
+        }
+      }
+
+      .sidebar-sticky {
+        position: relative;
+        top: 0;
+        height: calc(100vh - 48px);
+        padding-top: .5rem;
+        overflow-x: hidden;
+        overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+      }
+
+      @supports ((position: -webkit-sticky) or (position: sticky)) {
+        .sidebar-sticky {
+          position: -webkit-sticky;
+          position: sticky;
+        }
+      }
+
+      .sidebar .nav-link {
+        font-weight: 500;
+        color: #333;
+      }
+
+      .sidebar .nav-link .feather {
+        margin-right: 4px;
+        color: #999;
+      }
+
+      .sidebar .nav-link.active {
+        color: #007bff;
+      }
+
+      .sidebar .nav-link:hover .feather,
+      .sidebar .nav-link.active .feather {
+        color: inherit;
+      }
+
+      .sidebar-heading {
+        font-size: .75rem;
+        text-transform: uppercase;
+      }
+
+      /*
+       * Navbar
+       */
+
+      .navbar-brand {
+        padding-top: .75rem;
+        padding-bottom: .75rem;
+        font-size: 1rem;
+        background-color: rgba(0, 0, 0, .25);
+        box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+      }
+
+      .navbar .navbar-toggler {
+        top: .25rem;
+        right: 1rem;
+      }
+
+      .navbar .form-control {
+        padding: .75rem 1rem;
+        border-width: 0;
+        border-radius: 0;
+      }
+
+      .form-control-dark {
+        color: #fff;
+        background-color: rgba(255, 255, 255, .1);
+        border-color: rgba(255, 255, 255, .1);
+      }
+
+      .form-control-dark:focus {
+        border-color: transparent;
+        box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
+      }
+
+      /* Sticky Footer */
+      .footer {
+        position: sticky;
+        bottom: 0;
+        width: 100%;
+        background-color: #343a40; /* Dark Background */
+        color: white;
+        text-align: center;
+        padding: 10px 0;
+      }
+      html, body {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Wrapper for main content */
+      .wrapper {
+        flex: 1;
+      }
+      /* Sticky Footer */
+      .footer {
+        z-index: 100; /* Behind the navbar */
+        position: sticky;
+        bottom: 0;
+        width: 100%;
+        background-color: #343a40; /* Dark Background */
+        color: white;
+        text-align: center;
+        padding: 10px 0;
+      }
+    </style>
+
+    {% block css %}
+    {% endblock css %}
+
+</head>
+
+<body>
+
+  <!-- Main Wrapper -->
+  <div class="wrapper">
+
+    <!-- Navbar -->
+    {% block navbar %}
+      <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+
+        <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="{% url 'portal:home' %}">Django Warehouse</a>
+
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu"  aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <ul class="navbar-nav mr-auto px-3">
+          <li class="nav-item">
+            <a class="nav-link text-white" href="#">Home</a>
+          </li>
+        </ul>
+
+        <ul class="navbar-nav px-3">
+          <li class="nav-item text-nowrap">
+            <a class="nav-link text-white" href="#">Hi, Sign Out</a>
+          </li>
+        </ul>
+
+      </nav>
+    {% endblock navbar %}
+
+    <!-- Content -->
+    {% block content %}
+      <div class="container-fluid">
+        <div class="row">
+
+        <!-- Sidebar -->
+        {% block sidebar %}
+        {% endblock sidebar %}
+
+        <!-- Main -->
+        {% block main %}
+        {% endblock main %}
+
+        </div>
+      </div>
+    {% endblock content %}
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p class="mb-0">© 2025. All rights reserved.</p>
+  </footer>
+
+  {% block js %}
+  <!-- Bootstrap 5 JS (needed for collapse functionality) -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  {% endblock js %}
+
+</body>
+</html>

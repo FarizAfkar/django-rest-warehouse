@@ -1,0 +1,150 @@
+{% extends 'portal/base.html' %}
+{% load static %}
+
+{% block css %}
+<style>
+  html,
+  body {
+    height: 100%;
+  }
+
+  .form-signin {
+    max-width: 330px;
+    padding: 1rem;
+  }
+
+  .form-signin .form-floating:focus-within {
+    z-index: 2;
+  }
+
+  .form-signin input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .form-signin input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+</style>
+{% endblock css %}
+
+{% block navbar %}
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+  <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="{% url 'portal:home' %}">Django Warehouse</a>
+    <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar"  aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link active" href="{% url 'portal:login' %}">log in</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'portal:register' %}">Register</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+{% endblock navbar %}
+
+{% block content %}
+
+  {% block sidebar %}
+  {% endblock sidebar %}
+
+  {% block main %}
+    <div class="container px-md-4 mt-4" style="max-width: 900px;">
+      <!-- Title -->
+      <h2 class="border-bottom border-gray pb-4 mb-0">
+        <center><i class="bi bi-person-fill my-5"></i> | Log in</center>
+      </h2>
+
+      <!-- Form -->
+      <form method="post" class="bg-light border rounded p-5 shadow-lg" id="login" autocomplete="off" style="margin-top: 50px;">
+        {% csrf_token %}
+
+        {% include 'messages.html'%}
+
+        <!-- Form Input -->
+        <div class="input-group flex-nowrap mb-3">
+          <span class="input-group-text" id="wrapping-user"><i class="bi bi-envelope"></i></span>
+          {{form.username}}
+        </div>
+
+        <!-- Form Input -->
+        <div class="input-group flex-nowrap my-3">
+          <span class="input-group-text" id="wrapping-pass"><i class="bi bi-key"></i></span>
+          {{form.password}}
+            <span class="input-group-text" onclick="password_show_hide();">
+              <i class="bi bi-eye-fill" id="show_eye"></i>
+              <i class="bi bi-eye-slash-fill d-none" id="hide_eye"></i>
+            </span>
+        </div>
+
+        <!-- Form Submit -->
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-5">
+          <a class="btn btn-outline-success col-md-6 col-lg-2" href="{% url 'portal:register' %}" role="button">Register</a>
+          <button class="btn btn-primary col-md-6 col-lg-2" type="submit">Log in</button>
+        </div>
+
+      </form>
+
+      <!-- Form Overlay -->
+      <div id="loading" class="overlay spanner">
+        <div class="loader"></div>
+        <p>Authentication is in progress please wait.</p>
+      </div>
+    </div>
+  {% endblock main %}
+
+{% endblock content %}
+
+{% block js %}
+  {{block.super}}
+  <script>
+
+    $(document).ready(function(){
+
+      $('#infoToast').toast('show');
+
+      // Timeout Messages
+      setTimeout(function(){
+        if ($('#messages').length > 0){
+          $('#messages').remove();
+        }
+      },2000);
+
+      // Form Overlay
+      $('form').on('submit', function(){
+        $('div#loading').addClass('show');
+        setTimeout(function() {
+          $('div#loading').removeClass('show');
+        }, 5000);
+        });
+
+      });
+
+    // Password
+    function password_show_hide() {
+      var $passwordField = $("#id_password");
+      var $showEye = $("#show_eye");
+      var $hideEye = $("#hide_eye");
+
+      $hideEye.removeClass("d-none");
+
+      if ($passwordField.attr("type") === "password") {
+        $passwordField.attr("type", "text");
+        $showEye.hide();
+        $hideEye.show();
+      } else {
+        $passwordField.attr("type", "password");
+        $showEye.show();
+        $hideEye.hide();
+      }
+    }
+  </script>
+{% endblock js %}

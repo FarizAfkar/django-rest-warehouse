@@ -1,0 +1,336 @@
+{% load static %}
+
+{% load i18n %}
+
+
+<!doctype html>
+<html>
+
+  <head>
+
+    <meta charset="utf-8">
+    <title>Inovice</title>
+
+    <style type="text/css">
+
+      @page {
+        size: a4 landscape;
+        font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+        @frame header_frame {           /* Static Frame */
+          -pdf-frame-content: header_content;
+        }
+        @frame content_frame {          /* Content Frame */
+          left: 20pt; width: 800pt; top: 0pt; height: 700pt;
+        }
+        @frame footer_frame {           /* Another static Frame */
+          -pdf-frame-content: footer_note_content;
+          left: 20pt; width: 800pt; top: 0pt;
+        }
+        @frame footer_frame {           /* Another static Frame */
+          -pdf-frame-content: footer_content;
+          top: 0pt;
+        }
+      }
+
+      html {
+        font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+      }
+
+      .center {
+        margin: auto;
+        width: 50%;
+        text-align: center;
+        padding: 10px;
+      }
+
+      .border{
+        border: 2px solid green;
+      }
+
+      .header-line{
+        padding-bottom: 10px;
+        border-bottom: 3px solid #707070;
+      }
+
+      .id-order{
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        color: #0D579A;
+        padding-bottom: 5px;
+      }
+
+      .sub-title{
+        font-style: normal;
+        font-weight: 600;
+        font-size: 10px;
+        color: #0D579A;
+        line-height: 13px;
+      }
+
+      .font-bold{
+        font-weight: 600;
+      }
+
+      .font-blue{
+        color: #0D579A;
+      }
+
+      .font-lgi{
+        font-style: normal;
+        font-weight: 400;
+        font-size: 10px;
+        color: #25282B;
+        padding-top: 3px;
+        padding-bottom: 0px;
+        line-height: 13px;
+      }
+
+      .font-lgi-note{
+        font-style: normal;
+        font-weight: 400;
+        font-size: 9px;
+        color: #25282B;
+        padding-top: 3px;
+        padding-bottom: 0px;
+        line-height: 13px;
+      }
+
+      .font-lgi-payment{
+        font-style: normal;
+        font-weight: 600;
+        font-size: 10px;
+        color: #25282B;
+        padding-top: 3px;
+        padding-bottom: 0px;
+      }
+
+      table, th, td {
+        border: 0px solid black;
+        text-align: justify;
+        line-height: 0px;
+      }
+
+      .content-key {
+        width: 120px;
+      }
+
+      .sparator{
+        width: 100px;
+      }
+
+      .table-title{
+        color:#FFFFFF;
+        text-align: center;
+      }
+
+      .table-padding{
+        padding: 3px 2px 3px 2px;
+      }
+
+      .odd-bg{
+        background-color: #F0F0F0;
+      }
+
+      .even-bg{
+        background-color : #F9FAFC;
+      }
+
+      .bd-gray-top{
+        border-top: 0.1px solid #707070;
+      }
+
+      .bd-gray-bottom{
+        border-bottom: 0.1px solid #707070;
+      }
+
+      .bd-gray-left{
+        border-left: 0.1px solid #707070;
+      }
+
+      .bd-gray-right{
+        border-right: 0.1px solid #707070;
+      }
+
+      .bd-white-top{
+        border-top: 0.1px solid #FFFFFF;
+      }
+
+      .bd-white-bottom{
+        border-bottom: 0.1px solid #FFFFFF;
+      }
+
+      .bd-white-left{
+        border-left: 0.1px solid #FFFFFF;
+      }
+
+      .bd-white-right{
+        border-right: 0.1px solid #FFFFFF;
+      }
+
+      .payment-to-lgi{
+        color: #FFFFFF;
+        background-color: #0D579A;
+        font-weight: 600;
+      }
+
+
+    </style>
+
+  </head>
+
+  <body>
+
+    <div class="id-order center">Stock Report</div>
+      <table>
+        <tr>
+          <td class="sub-title" style="width:10%;">Item Code</td>
+          <td class="sub-title">: {{item.code}}</td>
+        </tr>
+        <tr>
+          <td class="sub-title" style="width:10%;">Name</td>
+          <td class="sub-title">: {{item.name}}</td>
+        </tr>
+        <tr>
+          <td class="sub-title" style="width:10%;">Unit</td>
+          <td class="sub-title">: {{item.unit}}</td>
+        </tr>
+      </table>
+    </div>
+
+    <div style="margin-top:10px;">
+      <table class="bd-gray-left bd-gray-right">
+        <tr class="bd-gray-top table-padding" style="background-color: #0E5799;">
+          <th class="table-title bd-white-right" style="width:2%;">No</th>
+          <th class="table-title bd-white-right" style="width:7%;">Date</th>
+          <th class="table-title bd-white-right" style="width:15%;">Description</th>
+          <th class="table-title bd-white-right" style="width:7%;">Code</th>
+          <th class="table-title" style="width:25%;">
+            <table>
+              <tr>
+                <td colsapn="3">In</td>
+              </tr>
+              <tr>
+                <td>Qty</td>
+                <td>price</td>
+                <td>Total</td>
+              </tr>
+            </table>
+          </th>
+          <th class="table-title" style="width:25%;">
+            <table>
+              <tr>
+                <td colsapn="3">In</td>
+              </tr>
+              <tr>
+                <td>Qty</td>
+                <td>price</td>
+                <td>Total</td>
+              </tr>
+            </table>
+          </th>
+          <th class="table-title" style="width:25%;">
+            <table>
+              <tr>
+                <td colsapn="3">In</td>
+              </tr>
+              <tr>
+                <td>Qty</td>
+                <td>price</td>
+                <td>Total</td>
+              </tr>
+            </table>
+          </th>
+        </tr>
+
+
+      </table>
+    </div>
+
+    <div>
+      <table>
+        <tr>
+
+          <!-- Column Left -->
+          <td style="width:45%"></td>
+
+          <!-- Column Right -->
+          <td style="vertical-align: top;">
+            <table class="bd-gray-left bd-gray-right">
+
+
+
+                <!-- Sub Total -->
+                <tr class="bd-gray-top even-bg table-padding">
+                  <td style="width:50%;text-align: left;">Sub Total</td>
+                  <td style="width:50%;text-align: right;font-weight:600;">
+
+                  </td>
+                </tr>
+
+                <!-- Discount Voucher -->
+                <tr class="odd-bg table-padding">
+                  <td style="width:50%;text-align: left;">Discount Voucher</td>
+                  <td style="width:50%;text-align: right;font-weight:600;">0</td>
+                </tr>
+
+                <!-- Total Description of Charge -->
+                <tr class="even-bg table-padding">
+                  <td style="width:50%;text-align: left;">Total Description of Charge</td>
+                  <td style="width:50%;text-align: right;font-weight:600;">
+
+                  </td>
+                </tr>
+
+                <!-- VAT -->
+                <tr class="odd-bg table-padding">
+                  <td style="width:50%;text-align: left;">VAT</td>
+                  <td style="width:50%;text-align: right;font-weight:600;">
+
+                  </td>
+                </tr>
+
+                <!-- Total (Include VAT) -->
+                <tr class="even-bg table-padding">
+                  <td style="width:50%;text-align: left;">Total (Include VAT)</td>
+                  <td style="width:50%;text-align: right;font-weight:600;">
+
+                  </td>
+                </tr>
+
+                <!-- DP (Inc. Unique Number) -->
+                <tr class="odd-bg table-padding">
+                  <td style="width:50%;text-align: left;">DP (Inc. Unique Number)</td>
+                  <td style="width:50%;text-align: right;font-weight:600;">
+
+                  </td>
+                </tr>
+
+                <!-- Total Payment (exc. Unique Number) -->
+                <tr class="bd-white-bottom table-padding payment-to-lgi">
+                  <td style="width:50%;text-align: left;">Total Payment (exc. Unique Number)</td>
+
+                </tr>
+
+                <!-- Unique Number -->
+                <tr class="bd-white-bottom table-padding payment-to-lgi">
+                  <td style="width:50%;text-align: left;">Unique Number</td>
+                  <td style="width:50%;text-align: right;"></td>
+                </tr>
+
+                <!-- Total Payment to Logisklik -->
+                <tr class="bd-gray-bottom table-padding payment-to-lgi">
+                  <td style="width:50%;text-align: left;">Total Payment to Logisklik</td>
+                  <td style="width:50%;text-align: right;"></td>
+                </tr>
+
+            </table>
+          </td>
+
+        </tr>
+      </table>
+    </div>
+
+  </body>
+
+</html>

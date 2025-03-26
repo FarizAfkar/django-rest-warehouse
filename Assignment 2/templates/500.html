@@ -1,0 +1,19 @@
+{% extends "base-error.html" %}
+
+{% block title %} 400 {% endblock title %}
+
+{% block content %}
+  <div class="container my-5">
+    <div class="position-relative p-5 text-center text-muted bg-body border border-dashed rounded-5">
+      <button id="closeBtn" type="button" class="position-absolute top-0 end-0 p-3 m-3 btn-close bg-secondary bg-opacity-10 rounded-pill" aria-label="Close"></button>
+      <i class="bi bi-person-raised-hand mt-5 mb-3" style="font-size:10rem"></i>
+      <h1 class="text-body-emphasis">Error 500</h1>
+      <p class="col-lg-6 mx-auto mb-4">
+        Something wrong here...
+      </p>
+      <p>Whoops, something when wrong on our end. Check out our Help Center or head back to Home.</p>
+      <button id="closeBtn500" class="btn btn-info btn-lg col-md-2 m-1" role="button">Go Back</button>
+    </div>
+  </div>
+
+{% endblock content %}
